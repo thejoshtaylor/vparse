@@ -5,6 +5,8 @@
 
 import parse
 import draw
+
+import os
 import argparse
 
 
@@ -44,8 +46,23 @@ def main():
     # Get file
     file = inputFile()
 
+    # Get size of file
+    size = os.path.getsize(file)
+
+    # If file is large, show progress
+    doProgress = size > 1000000
+
+    print()
+    print(f"Reading {os.path.basename(file)}... ", end="", flush=True)
+
     # Parse file
-    objects = parse.parse(file)
+    objects = parse.parse(file, doProgress)
+
+    print("done")
+
+    # Get total number of objects
+    # print(f"Found {parse.count(objects)} objects")
+    print()
     
     # Menu
     while True:
